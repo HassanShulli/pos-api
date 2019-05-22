@@ -6,6 +6,7 @@ app.use(morgan('combined'))
 // var port = process.env.PORT || 8080;    // for heroku
 var port = 3000;    // for local use
 var bodyParser = require('body-parser');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -33,9 +34,11 @@ app.use(function (req, res, next) {
     }
 });
 
+
 const table = require('./routers/table');
 const item = require('./routers/item');
 const order = require('./routers/order');
+const user = require('./routers/user');
 
 //initialise express router
 var router = express.Router();
@@ -43,6 +46,7 @@ var router = express.Router();
 app.use("/table", table);
 app.use("/item", item);
 app.use("/order", order);
+app.use("/user", user);
 
 // catch 404
 app.use(function (req, res) {
