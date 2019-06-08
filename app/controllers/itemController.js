@@ -50,6 +50,13 @@ exports.delete = function (req, res) {
 };
 
 exports.read = function (req, res) {
+
+    const bearerHeader = req.headers['Authorization'];
+    const bearerHeader2 = req.headers['Content-Type'];
+
+    console.log('bearerHeader : ', bearerHeader);
+    console.log('bearerHeader2 : ', bearerHeader2);
+    
     Item.find({},
         function (err, items) {
             if (err) {

@@ -1,6 +1,7 @@
 var express = require("express");
 var morgan = require('morgan')
 var app = express();
+const expressJwt = require('express-jwt');
 app.use(morgan('combined'))
 
 // var port = process.env.PORT || 8080;    // for heroku
@@ -20,6 +21,27 @@ mongoose.connection.on('error', function (err) {
     process.exit();
 });
 
+// app.use(expressJwt({
+//     secret: 'pos-app-shared-secret',
+//     getToken: function fromHeaderOrQuerystring(req) {
+//         if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+//             return req.headers.authorization.split(' ')[1];
+//         } else if (req.query && req.query.token) {
+//             return req.query.token;
+//         }
+//         return null;
+//     }
+// }).unless({
+//     path: [
+//         '/',
+//         '/user/login',
+//         '/user/register'
+//     ]
+// }), function (err, req, res, next) {
+//     if (err) {
+//         res.status(401).send({ success: false, result: [], messages: [err.message] })
+//     }
+// });
 
 // allow-cors
 app.use(function (req, res, next) {

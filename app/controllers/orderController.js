@@ -25,7 +25,8 @@ exports.read = function (req, res) {
 
     queryOptions = {
             page: req.query.pageIndex ? req.query.pageIndex * 1 : 1,
-            limit: req.query.limit ? req.query.limit * 1 : 10
+            limit: req.query.limit ? req.query.limit * 1 : 10,
+            sort: '-updatedAt'
         }    
 
     Order.paginate(query, queryOptions)

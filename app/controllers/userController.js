@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 
 exports.register = function(req, res) {
 	var newUser = {
+		name: req.body.name,
 		email: req.body.email,
 		password: bcrypt.hashSync(req.body.password, 10)
 	};
@@ -26,8 +27,10 @@ exports.login = function(req, res) {
 			if(err) {
 				res.json({success: false, result: [], messages: [err.message]});
 			} else if (user && bcrypt.compareSync(req.body.password, user.password)) {
-				var token = jwt.sign({userID: user._id}, 'todo-app-super-shared-secret', {expiresIn: '2h'});
-				res.json({success: true, result: token, messages: []});
+				console.log('user in login : ', user);
+				var token = jwt.sign({userID: user._id, userName: user.name}, 'pos-app-shared-secret',
+					{expiresIn: '1h'});
+				res.json({success: true, result: [{token: token}], messages: []});
 			} else {
 				res.json({success: false, result: [], messages: ['Invalid login credentials']});
 			}
