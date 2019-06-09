@@ -1,6 +1,6 @@
 const Item = require('../models/Item');
 
-exports.create = function (req, res) {
+exports.create = function (req, res, next) {
 
     var newItem = {
         name: req.body.name,
@@ -13,7 +13,10 @@ exports.create = function (req, res) {
         if (err) {
             res.json({success: false, result: [], messages: [err.message]});
         } else {
-            res.json({success: true, result: item, messages: []});
+            req.item = item;
+            req.type = req.body.type;
+            // res.json({success: true, result: item, messages: []});
+            next();
         }
     });
 };

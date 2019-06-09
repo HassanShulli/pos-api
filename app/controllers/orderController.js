@@ -1,9 +1,12 @@
 const Order = require('../models/Order');
 
-exports.create = function (req, res) {
-
+exports.create = function (req, res, next) {
+    console.log('req.body.table : ', req.body.table);
     var newOrder = {
-        table: req.body.table,
+        table: {
+            _id: req.body.table._id,
+            number: req.body.table.number,
+        },
         items: req.body.items,
         total: req.body.total
     };
@@ -12,7 +15,11 @@ exports.create = function (req, res) {
         if (err) {
             res.json({success: false, result: [], messages: [err.message]});
         } else {
-            res.json({success: true, result: order, messages: []});
+            // res.json({success: true, result: order, messages: []});
+            console.log('order created : : ', order);
+            req.items = order.items;
+            req.table = order.table;
+            next();
         }
     });
 };

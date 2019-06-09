@@ -1,6 +1,6 @@
 const Table = require('../models/Table');
 
-exports.create = function (req, res) {
+exports.create = function (req, res, next) {
     var newTable = {
         number: req.body.number,
         seats: req.body.seats
@@ -10,7 +10,9 @@ exports.create = function (req, res) {
         if (err) {
             res.json({success: false, result: [], messages: [err.message]});
         } else {
-            res.json({success: true, result: table, messages: []});
+            req.table = table;
+            req.type = 'table';
+            next();
         }
     });
 };

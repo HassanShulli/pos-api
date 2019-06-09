@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const itemCtrl = require('../app/controllers/itemController');
+const counterCtrl = require('../app/controllers/counterController');
 
-router.post('/create', itemCtrl.create) ;
+router.post('/create',  itemCtrl.create, counterCtrl.create);
 router.get('/read', itemCtrl.read);
 router.put('/update', itemCtrl.update);
 router.delete('/delete/:id', itemCtrl.delete);
