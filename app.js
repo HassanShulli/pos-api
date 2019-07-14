@@ -70,7 +70,7 @@ app.use("/table", table);
 app.use("/item", item);
 app.use("/order", order);
 app.use("/user", user);
-app.use("/counter", counter)
+app.use("/counter", counter);
 
 // catch 404
 app.use(function (req, res) {

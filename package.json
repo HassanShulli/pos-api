@@ -24,6 +24,7 @@
     "mongoose": "^4.12.4",
     "mongoose-paginate": "^5.0.3",
     "mongoose-paginate-page": "^1.0.2",
+    "morgan": "^1.9.1",
     "nodemon": "^1.12.1"
   }
 }

@@ -11,7 +11,8 @@ const OrderSchema = new mongoose.Schema({
         	number: Number
         },
         items: Array,
-        total: Number
+        total: Number,
+        type: String
     }, {timestamps: true}
 )
 
