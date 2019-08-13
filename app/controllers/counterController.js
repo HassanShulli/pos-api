@@ -4,7 +4,7 @@ exports.create = function (req, res) {
 	console.log('req.item : ', req.item);
 	console.log('req.type : ', req.type);
 	console.log('req.table : ', req.table);
-	var newCounter = {}
+	let newCounter = {};
 	// console.log('req : ', req);
 	if (req.type !== 'table') {
 		newCounter = {
@@ -57,10 +57,16 @@ exports.update = function (req, res) {
 
 	}
 
-}
+};
 
 exports.read = function (req, res) {
-	Counter.find({}, 
+	let filter = {};
+	if (req.body.type !== undefined && req.body.type !== null && req.body.type !== "") {
+		filter = {
+			"type": req.body.type
+		}
+	}
+	Counter.find(filter,
 		function (err, counters) {
 			if (err) {
 				res.json({success: false, result: [], messages: [err.message]});
@@ -68,5 +74,6 @@ exports.read = function (req, res) {
 				res.json({success: true, result: counters, messages: []});
 			}
 		}
-	)
-}
+	).populate('item_id')
+	 .populate('table_id');
+};

@@ -79,8 +79,8 @@ exports.read = function (req, res) {
 };
 
 exports.count = function(req, res) {
-    var filter = {};
-    if (req.body.orderType !== null && req.body.orderType !== undefined) {
+    let filter = {};
+    if (req.body.orderType !== null && req.body.orderType !== undefined && req.body.orderType !== "") {
         filter = {
             type : req.body.orderType
         }

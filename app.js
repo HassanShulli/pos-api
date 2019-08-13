@@ -49,7 +49,7 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     if(req.method === 'OPTIONS'){
-    	res.writeHead(200)
+    	res.writeHead(200);
     	res.end()
     }else{
     	next();    	
