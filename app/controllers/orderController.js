@@ -3,7 +3,6 @@ const Order = require('../models/Order');
 exports.create = function (req, res, next) {
     var hasCoffee = false;
     var hasCake = false;
-    console.log('req.body.table : ', req.body.table);
     var newOrder = {
         table: {
             _id: req.body.table._id,
@@ -14,7 +13,6 @@ exports.create = function (req, res, next) {
         type: ''
     };
     for (var i = 0; i < req.body.items.length; i++) {
-        console.log('req.body.items[i].itemType : ', req.body.items[i].itemType);
         if (req.body.items[i].itemType === 'coffee') {
             hasCoffee = true;
         } else if (req.body.items[i].itemType === 'cake') {
@@ -22,8 +20,6 @@ exports.create = function (req, res, next) {
         }
 
         if (i === req.body.items.length - 1) {
-            console.log('hasCoffee : ', hasCoffee);
-            console.log('hasCake : ', hasCake);
             if (hasCoffee === true && hasCake === true) {
                 newOrder.type = 'mixed';
             } else if (hasCoffee === true) {
@@ -37,8 +33,6 @@ exports.create = function (req, res, next) {
                 if (err) {
                     res.json({success: false, result: [], messages: [err.message]});
                 } else {
-                    // res.json({success: true, result: order, messages: []});
-                    console.log('order created : : ', order);
                     req.items = order.items;
                     req.table = order.table;
                     next();
@@ -85,9 +79,7 @@ exports.count = function(req, res) {
             type : req.body.orderType
         }
     }
-
     Order.find(filter).count(function(err, count) {
-        console.log('count : ', count);
         if (err) {
             res.json({success: false, result: [], messages: [err.message]});
         } else {
