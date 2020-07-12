@@ -1,4 +1,4 @@
-const Item = require('../models/Item');
+const Item = require('../models/appointment');
 
 exports.create = function (req, res, next) {
 

@@ -1,21 +1,18 @@
-var express = require("express");
-var morgan = require('morgan')
-var app = express();
-const expressJwt = require('express-jwt');
-app.use(morgan('combined'))
+let express = require("express");
+let morgan = require('morgan');
+let app = express();
+app.use(morgan('combined'));
 
-// var port = process.env.PORT || 8080;    // for heroku
-var port = 3000;    // for local use
-var bodyParser = require('body-parser');
+let port = 3000;    // for local use
+let bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-var mongoose = require("mongoose");
+let mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
-// mongoose.connect("mongodb://localhost:27017/POS_DB", {useMongoClient: true});  //for local mongo use
-mongoose.connect("mongodb://pos_admin1:pos_admin1@ds151530.mlab.com:51530/pos_app", {useMongoClient: true}); //mlab
+mongoose.connect("mongodb://localhost:27017/POS_DB");  //for local mongo use
 mongoose.connection.on('error', function (err) {
     console.error(err);
     process.exit();
@@ -35,18 +32,12 @@ app.use(function (req, res, next) {
 });
 
 
-const table = require('./routers/table');
-const item = require('./routers/item');
-const order = require('./routers/order');
-const counter = require('./routers/counter');
+const appointment = require('./routers/appointment');
 
 //initialise express router
-var router = express.Router();
+let router = express.Router();
 
-app.use("/table", table);
-app.use("/item", item);
-app.use("/order", order);
-app.use("/counter", counter);
+app.use("/appointment", appointment);
 
 // catch 404
 app.use(function (req, res) {
